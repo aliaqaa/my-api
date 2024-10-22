@@ -7,7 +7,11 @@ const cors = require('cors'); // Import the cors package
 const app = express();
 const port = 3000;
 app.use(bodyParser.json());
-app.use(cors()); // Use the CORS middleware
+app.use(cors({
+  origin: 'https://hexa-squad-api.liara.run/courses', // Update with your front-end URL
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: 'x-access-token, Origin, X-Requested-With, Content-Type, Accept'
+}));
 const db = mysql.createConnection({
   host: "sql12.freesqldatabase.com",
   user: "sql12738346",

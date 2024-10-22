@@ -9,20 +9,33 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+
+// Enable CORS globally with correct settings
 app.use(
   cors({
-    origin: "http://localhost:5173", // Update with your front-end URL
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
-    allowedHeaders:
-      "x-access-token, Origin, X-Requested-With, Content-Type, Accept",
+    origin: "http://localhost:5173", // Allow your front-end URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "x-access-token",
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+    ],
+    credentials: true, // Allow cookies if needed
   })
 );
+
+// Handle preflight requests (OPTIONS method)
+app.options("*", cors());
+
 const db = mysql.createConnection({
   host: "sql12.freesqldatabase.com",
   user: "sql12738346",
   password: "7PdfWzrgBk",
   database: "sql12738346",
 });
+
 db.connect((err) => {
   if (err) throw err;
   console.log("Connected to database");
@@ -85,7 +98,7 @@ app.get("/courses", (req, res) => {
   });
 });
 
-// Buy Course
+// Buy Course (protected route)
 app.post("/buy-course", verifyToken, (req, res) => {
   const { courseId } = req.body;
   db.query(
@@ -98,6 +111,7 @@ app.post("/buy-course", verifyToken, (req, res) => {
   );
 });
 
+// Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

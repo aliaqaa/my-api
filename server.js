@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", // Update with your front-end URL
+    origin: "https://hexa-squad-api.liara.run/", // Update with your front-end URL
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders:
       "x-access-token, Origin, X-Requested-With, Content-Type, Accept",

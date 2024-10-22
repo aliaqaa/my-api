@@ -3,11 +3,11 @@ const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
-
+const cors = require('cors'); // Import the cors package
 const app = express();
 const port = 3000;
 app.use(bodyParser.json());
-
+app.use(cors()); // Use the CORS middleware
 const db = mysql.createConnection({
   host: "sql12.freesqldatabase.com",
   user: "sql12738346",

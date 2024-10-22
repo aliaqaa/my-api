@@ -74,7 +74,7 @@ const verifyToken = (req, res, next) => {
 };
 
 // Get Courses
-app.get("/courses", verifyToken, (req, res) => {
+app.get("/courses",  (req, res) => {
   db.query("SELECT * FROM courses", (err, results) => {
     if (err) return res.status(500).send(err);
     res.status(200).send(results);
